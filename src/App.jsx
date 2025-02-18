@@ -6,25 +6,18 @@ import axios from "axios";
 
 export default function App() {
   const [data, setData] = useState("")
-
-
   useEffect(() => {
     axios({
       method: 'get',
       url: `https://ipinfo.io/json?token=3201fc784397f4`,
     })
     .then((response) => {
-      console.log(response);
+      setData(response);
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
     });
   }, []);
-
-
-
-
-
   return (
     <>
       <div className="md:flex">
