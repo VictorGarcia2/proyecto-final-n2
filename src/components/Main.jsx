@@ -55,7 +55,7 @@ export default function Main({ data, setClima, clima,setCountry, setName, countr
                 className="bg-[#1E213A] w-32 h-40 text-center flex flex-col p-3 items-center"
               >
                 <p className="font-display text-white">Tomorrow</p>
-                <img className="w-17" src="/public/states/11n.png" alt="" />
+                <img className="w-17" src="states/11n.png" alt="" />
                 <div className="flex justify-center gap-2 pt-2">
                   <p className="text-white font-display">27°C</p>
                   <p className="text-white font-display">21°C</p>
@@ -75,7 +75,7 @@ export default function Main({ data, setClima, clima,setCountry, setName, countr
                 <p>Wind status</p>
                 <p className="text-5xl font-bold">{wind}</p>
                 <div className="flex items-center justify-center">
-                  <img className="w-4" src="/public/navigation.svg" alt="" />
+                  <img className="w-4" src="navigation.svg" alt="" />
                   <p>ENE</p>
                 </div>
               </div>

@@ -91,7 +91,7 @@ export default function Aside({ setData, clima, setCountry }) {
       <div className="bg-[#1E213A]  h-screen md:w-[475px] lg:w-[475px] font-display ">
         <img
           className="absolute mt-8 opacity-15 h-80 md:w-[373px]  object-cover  "
-          src="/public/Cloud-background.png"
+          src="Cloud-background.png"
           alt=""
         />
         <div className="flex   justify-around gap-10 pt-4 items-center">
@@ -113,7 +113,7 @@ export default function Aside({ setData, clima, setCountry }) {
               <img
                 key={item.id}
                 className="w-20 md:w-32"
-                src={`/public/states/${item.icon}.png`}
+                src={`states/${item.icon}.png`}
                 alt=""
               />
             ))}
