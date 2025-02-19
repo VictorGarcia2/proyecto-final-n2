@@ -7,7 +7,7 @@ export default function App() {
   const [data, setData] = useState("");
   const [clima, setClima] = useState([]);
   const [country, setCountry] = useState("");
-  const [name, setName] = useState("");
+  
   useEffect(() => {
     axios({
       method: "get",
@@ -23,10 +23,23 @@ export default function App() {
   return (
     <>
       <div className="md:flex">
-        <Aside data={data} clima={clima} setClima={setClima} setData={setData} setCountry={setCountry} country={country} setName={setName} name={name} />
-       
-          <Main data={data} clima={clima} setClima={setClima} setData={setData} setCountry={setCountry} country={country} setName={setName} name={name} />
-      
+        <Aside
+          data={data}
+          clima={clima}
+          setClima={setClima}
+          setData={setData}
+          setCountry={setCountry}
+          country={country}
+        />
+          <Main
+            data={data}
+            clima={clima}
+            setClima={setClima}
+            setData={setData}
+            setCountry={setCountry}
+            country={country}
+            
+          />
       </div>
     </>
   );

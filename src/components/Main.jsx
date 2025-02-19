@@ -6,16 +6,18 @@ export default function Main({ data, setClima, clima,setCountry, setName, countr
   const airPressure = clima?.data?.main?.pressure;
   const wind = clima?.data?.wind?.speed;
   const visibility = clima?.data?.visibility;
-
+  console.log(visibility)
+  const elDato = `${data},${country}`;
+  console.log(elDato)
   useEffect(() => {
-    aP(data)
+    aP(elDato)
       .then((response) => {
         setClima(response);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, [data]);
+  }, [elDato]);
 
   const list = [
     {

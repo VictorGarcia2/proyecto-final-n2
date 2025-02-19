@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { aP } from "../APIs/API";
 import { geocoding } from "../APIs/Geocoding";
 import axios from "axios";
-export default function Aside({ setData, clima, setCountry, setName, country, name }) {
+export default function Aside({ setData, clima, setCountry }) {
   const tempData = clima?.data?.main?.temp;
   const temp = parseFloat(tempData).toFixed(0) - 273;
   const icon = clima?.data?.weather;
@@ -39,23 +39,22 @@ export default function Aside({ setData, clima, setCountry, setName, country, na
     setCity(body.city);
   };
   const handleSearch = (e) => {
-    setData(e.target.textContent)
     searching.find((item, index) => {
       if(index == e.target.id){
         const country = item.country;
         const name = item.name;
         setCountry(country);
         setData(name);
+        setSearchModal(true);
       }
     });
- 
   }
 
   return (
     <>
       <div
         className={` ${
-          searchModal || "hidden"
+          searchModal && "hidden"
         }  flex flex-col  absolute bg-[#1E213A] z-50  h-screen md:w-[426px] lg:w-[475px]   font-display  `}
       >
         <form onSubmit={handle} className=" w-full px-10">
