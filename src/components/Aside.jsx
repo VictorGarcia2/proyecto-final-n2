@@ -93,7 +93,7 @@ export default function Aside({ setData, clima, setCountry }) {
             Search{" "}
           </button>
         </form>
-        <div className="bg-white w-45 h-auto mx-10 rounded-b-lg">
+        <div className="bg-white w-45 h-auto z-50 mx-10 rounded-b-lg">
           {searching &&
             searching.map((item, index) => (
               <p
