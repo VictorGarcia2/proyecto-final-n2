@@ -12,6 +12,7 @@ export default function Aside({ setData, clima, setCountry }) {
   const today = new Date();
   const [searching, setSearching] = useState([]);
   const [city, setCity] = useState("");
+  console.log(searching)
 
   const handleclick = () => {
     axios({

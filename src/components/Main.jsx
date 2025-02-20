@@ -18,7 +18,6 @@ export default function Main({
   const [fiveDay, setFiveDay] = useState([]);
   const deg = clima?.data?.wind?.deg;
   const elDato = `${data},${country}`;
-
   const todayy = new Date();
   const toadyyy = todayy.toISOString().split("T")[0];
   const hours = todayy.getHours();
@@ -26,9 +25,6 @@ export default function Main({
   const seconds = todayy.getSeconds();
   const time = `${hours}:${minutes}:${seconds}`;
   const formated = toadyyy + " " + time;
-
- 
-
   useEffect(() => {
     aP(elDato)
       .then((response) => {
@@ -45,34 +41,6 @@ export default function Main({
         console.error("Error fetching data:", error);
       });
   }, [elDato]);
-
-  /* useEffect(() => {
-    fiveDays(data,country)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, [elDato]); */
-
-  const list = [
-    {
-      id: 1,
-    },
-    {
-      id: 1,
-    },
-    {
-      id: 1,
-    },
-    {
-      id: 1,
-    },
-    {
-      id: 1,
-    },
-  ];
   return (
     <div className="bg-[#100E1D] w-full flex flex-col items-center  md:h-screen ">
       <div className="w-80 md:w-96 flex pt-6 lg:mt-16 flex-col justify-center  items-center ">
