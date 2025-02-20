@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { aP } from "../APIs/API";
-import { geocoding } from "../APIs/Geocoding";
+
 import axios from "axios";
 
 export default function Aside({ setData, clima, setCountry }) {
@@ -37,7 +37,7 @@ export default function Aside({ setData, clima, setCountry }) {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=02cd14f791e3ce9764a5590ca5580724`,
+      url: `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=02cd14f791e3ce9764a5590ca5580724`,
     })
       .then((response) => {
         setSearching(response?.data);
