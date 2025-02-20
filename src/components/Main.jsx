@@ -75,7 +75,7 @@ export default function Main({
   ];
   return (
     <div className="bg-[#100E1D] w-full flex flex-col items-center  md:h-screen ">
-      <div className="w-80 md:w-96 flex pt-6 flex-col justify-center  items-center ">
+      <div className="w-80 md:w-96 flex pt-6 lg:mt-16 flex-col justify-center  items-center ">
         <div className="flex text-center gap-2   justify-end p-4 md:py-4  w-full ">
           <div className="rounded-full w-10 h-10 bg-[#585676] ">
             <p className="font-display text-white p-3 items-center ">°C</p>

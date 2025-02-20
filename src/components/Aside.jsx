@@ -86,7 +86,7 @@ export default function Aside({ setData, clima, setCountry }) {
             placeholder="Search..."
           />
           <button
-            className="text-center bg-blue-700 text-white px-2 py-1 rounded"
+            className="text-center bg-blue-700 text-white px-2 py-1 rounded cursor-pointer"
             type="submit"
           >
             {" "}
@@ -106,22 +106,22 @@ export default function Aside({ setData, clima, setCountry }) {
             ))}
         </div>
       </div>
-      <div className="bg-[#1E213A] relative  h-screen md:w-[475px] lg:w-[675px] font-display ">
+      <div className="bg-[#1E213A] relative  h-screen md:w-[475px] lg:w-[800px] font-display ">
         <img
-          className=" absolute mt-8 opacity-15 h-80 md:w-full object-cover   "
+          className=" absolute mt-12 z-0  opacity-15 h-80 md:w-full object-cover   "
           src="Cloud-background.png"
           alt=""
         />
-        <div className="flex   justify-around gap-10 pt-4 items-center">
-          <div className=" cursor-pointer">
+        <div className="flex z-50   justify-around gap-10 pt-4 items-center">
+          <div>
             <button
               onClick={() => setSearchModal(false)}
-              className="text-white py-1 px-4 bg-[#6E707A]"
+              className="text-white py-1 px-4 bg-[#6E707A] lg:w-[176px] cursor-pointer"
             >
               Search for places
             </button>
           </div>
-          <a className="rounded-full bg-[#6E707A] p-1 w-8 cursor-pointer" onClick={handleclick}>
+          <a className="rounded-full bg-[#6E707A] p-1  w-8 cursor-pointer" onClick={handleclick}>
             <img className="cursor-pointer"  src="location.svg" alt="" />
           </a>
         </div>
