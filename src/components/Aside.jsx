@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from "react";
 import { aP } from "../APIs/API";
 import { geocoding } from "../APIs/Geocoding";
 import axios from "axios";
+
 export default function Aside({ setData, clima, setCountry }) {
   const tempData = clima?.data?.main?.temp;
   const temp = parseFloat(tempData).toFixed(0) - 273;
@@ -12,7 +13,22 @@ export default function Aside({ setData, clima, setCountry }) {
   const [searching, setSearching] = useState([]);
   const [city, setCity] = useState("");
 
+  const handleclick = () => {
+    axios({
+      method: "get",
+      url: `https://ipinfo.io/json?token=3201fc784397f4`,
+    })
+      .then((response) => {
+      
+        setData(response?.data?.city);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
   
+
+
   const toggleSearchModal = () => {
     setSearchModal(true);
   };
@@ -40,7 +56,7 @@ export default function Aside({ setData, clima, setCountry }) {
   };
   const handleSearch = (e) => {
     searching.find((item, index) => {
-      if(index == e.target.id){
+      if (index == e.target.id) {
         const country = item.country;
         const name = item.name;
         setCountry(country);
@@ -48,14 +64,13 @@ export default function Aside({ setData, clima, setCountry }) {
         setSearchModal(true);
       }
     });
-  }
-
+  };
   return (
     <>
       <div
         className={` ${
           searchModal && "hidden"
-        }  flex flex-col  absolute bg-[#1E213A] z-50  h-screen md:w-[426px] lg:w-[475px]   font-display  `}
+        }  flex flex-col  absolute bg-[#1E213A] z-50  h-screen md:w-[426px] lg:w-[575px]   font-display  `}
       >
         <form onSubmit={handle} className=" w-full px-10">
           <p
@@ -79,18 +94,21 @@ export default function Aside({ setData, clima, setCountry }) {
           </button>
         </form>
         <div className="bg-white w-45 h-auto mx-10 rounded-b-lg">
-          { searching &&
-           searching.map((item, index) => (
-             <p onClick={handleSearch} id={index} className="cursor-pointer font-display p-2 hover:bg-gray-300 rounded-b-lg">
-              {item.name} | {item.country}
-             </p>
-          ))
-          }
+          {searching &&
+            searching.map((item, index) => (
+              <p
+                onClick={handleSearch}
+                id={index}
+                className="cursor-pointer font-display p-2 hover:bg-gray-300 rounded-b-lg"
+              >
+                {item.name} | {item.country}
+              </p>
+            ))}
         </div>
       </div>
-      <div className="bg-[#1E213A]  h-screen md:w-[475px] lg:w-[475px] font-display ">
+      <div className="bg-[#1E213A] relative  h-screen md:w-[475px] lg:w-[675px] font-display ">
         <img
-          className="absolute mt-8 opacity-15 h-80 md:w-[373px]  object-cover  "
+          className=" absolute mt-8 opacity-15 h-80 md:w-full object-cover   "
           src="Cloud-background.png"
           alt=""
         />
@@ -103,16 +121,16 @@ export default function Aside({ setData, clima, setCountry }) {
               Search for places
             </button>
           </div>
-          <div className="rounded-full bg-[#6E707A] p-1 w-8">
-            <img src="location.svg" alt="" />
-          </div>
+          <a className="rounded-full bg-[#6E707A] p-1 w-8 cursor-pointer" onClick={handleclick}>
+            <img className="cursor-pointer"  src="location.svg" alt="" />
+          </a>
         </div>
         <div className="flex flex-col gap-20 mt-20 items-center">
           {icon &&
             icon.map((item) => (
               <img
                 key={item.id}
-                className="w-20 md:w-32"
+                className="w-20 md:w-56"
                 src={`states/${item.icon}.png`}
                 alt=""
               />

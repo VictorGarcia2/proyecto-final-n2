@@ -1,14 +1,34 @@
 import { useEffect, useState } from "react";
 import { aP } from "../APIs/API"; // Ensure that aP is correctly exported from the API module
+import { fiveDays } from "../APIs/FiveDays";
 
-export default function Main({ data, setClima, clima,setCountry, setName, country, name }) {
+export default function Main({
+  data,
+  setClima,
+  clima,
+  setCountry,
+  setName,
+  country,
+  name,
+}) {
   const humedad = clima?.data?.main?.humidity;
   const airPressure = clima?.data?.main?.pressure;
   const wind = clima?.data?.wind?.speed;
   const visibility = clima?.data?.visibility;
-  console.log(visibility)
+  const [fiveDay, setFiveDay] = useState([]);
+  const deg = clima?.data?.wind?.deg;
   const elDato = `${data},${country}`;
-  console.log(elDato)
+
+  const todayy = new Date();
+  const toadyyy = todayy.toISOString().split("T")[0];
+  const hours = todayy.getHours();
+  const minutes = todayy.getMinutes();
+  const seconds = todayy.getSeconds();
+  const time = `${hours}:${minutes}:${seconds}`;
+  const formated = toadyyy + " " + time;
+
+ 
+
   useEffect(() => {
     aP(elDato)
       .then((response) => {
@@ -17,7 +37,24 @@ export default function Main({ data, setClima, clima,setCountry, setName, countr
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+    fiveDays()
+      .then((response) => {
+        setFiveDay(response.data.list);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, [elDato]);
+
+  /* useEffect(() => {
+    fiveDays(data,country)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, [elDato]); */
 
   const list = [
     {
@@ -48,17 +85,31 @@ export default function Main({ data, setClima, clima,setCountry, setName, countr
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2 md:flex">
-          {list &&
-            list.map((li, index) => (
+          {fiveDay &&
+            fiveDay.splice(0, 5).map((li, index) => (
               <div
                 key={index}
                 className="bg-[#1E213A] w-32 h-40 text-center flex flex-col p-3 items-center"
               >
-                <p className="font-display text-white">Tomorrow</p>
-                <img className="w-17" src="states/11n.png" alt="" />
+                {li.dt_txt.split(" ")[0] === formated.split(" ")[0] && (
+                  <p className="font-display text-white">Tomorrow</p>
+                )}
+                {li.weather.map((item) => (
+                  <img
+                    key={item.id}
+                    className="w-17"
+                    src={`states/${item.icon}.png`}
+                    alt=""
+                  />
+                ))}
+
                 <div className="flex justify-center gap-2 pt-2">
-                  <p className="text-white font-display">27°C</p>
-                  <p className="text-white font-display">21°C</p>
+                  <p className="text-white font-display">
+                    {li.main.temp_max}°C
+                  </p>
+                  <p className="text-white font-display">
+                    {li.main.temp_min}°C
+                  </p>
                 </div>
               </div>
             ))}
@@ -75,8 +126,23 @@ export default function Main({ data, setClima, clima,setCountry, setName, countr
                 <p>Wind status</p>
                 <p className="text-5xl font-bold">{wind}</p>
                 <div className="flex items-center justify-center">
-                  <img className="w-4" src="navigation.svg" alt="" />
-                  <p>ENE</p>
+                  <img
+                    className="w-4"
+                    style={{ transform: `rotate(${deg}deg)` }}
+                    src="navigation.svg"
+                    alt=""
+                  />
+                  {deg > 0 && deg < 90 ? (
+                    <p>NE</p>
+                  ) : deg > 90 && deg < 180 ? (
+                    <p>SE</p>
+                  ) : deg > 180 && deg < 270 ? (
+                    <p>SW</p>
+                  ) : deg > 270 && deg < 360 ? (
+                    <p>NW</p>
+                  ) : (
+                    <p>ENE</p>
+                  )}
                 </div>
               </div>
               <div className="bg-[#1E213A] grid place-content-center gap-10 h-48 md:w-80 text-center text-white font-display">
