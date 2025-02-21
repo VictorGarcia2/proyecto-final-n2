@@ -227,7 +227,7 @@ export default function Aside({
             </p>
             <div className="flex items-center  ">
               <div className="border-white border mx-4 text-gray-200 py-2 px-2 bg-[#1E213A] flex">
-                <img className="w-6 mx-2" src="/public/search.svg" alt="" />
+                <img className="w-6 mx-2" src="search.svg" alt="" />
                 <input
                   name="searchs"
                   className=" focus:outline-none focus:border-none focus:bg-none"
