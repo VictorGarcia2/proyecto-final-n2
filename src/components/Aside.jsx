@@ -12,6 +12,7 @@ export default function Aside({
   grados,
   setGrados,
 }) {
+  console.log(clima)
   const tempData = clima?.data?.main?.temp;
   const tempC = parseFloat(tempData).toFixed(0) - 273;
   const tempF = Math.round((parseFloat(tempData).toFixed(9) - 273) * 1.8 + 32);
