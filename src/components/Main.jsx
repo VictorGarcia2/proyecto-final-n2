@@ -164,7 +164,7 @@ export default function Main({
                     <p>SE</p>
                   ) : deg > 180 && deg < 270 ? (
                     <p>SW</p>
-                  ) : deg > 270 && deg <div 360 ? (
+                  ) : deg > 270 && deg < 360 ? (
                     <p>NW</p>
                   ) : (
                     <p>ENE</p>
