@@ -6,11 +6,11 @@ export default function Main({
   data,
   setClima,
   clima,
-  setCountry,
-  setName,
   country,
-  name,
+  grados,
+  setGrados,
 }) {
+
   const humedad = clima?.data?.main?.humidity;
   const airPressure = clima?.data?.main?.pressure;
   const wind = clima?.data?.wind?.speed;
@@ -18,13 +18,38 @@ export default function Main({
   const [fiveDay, setFiveDay] = useState([]);
   const deg = clima?.data?.wind?.deg;
   const elDato = `${data},${country}`;
-  const todayy = new Date();
-  const toadyyy = todayy.toISOString().split("T")[0];
-  const hours = todayy.getHours();
-  const minutes = todayy.getMinutes();
-  const seconds = todayy.getSeconds();
-  const time = `${hours}:${minutes}:${seconds}`;
-  const formated = toadyyy + " " + time;
+  const today = new Date();
+  const rs = [];
+
+  const current = new Date();
+
+  const exist = (item) =>
+    rs.some((weather) => {
+      const date = new Date(weather.dt * 1000);
+      const current = new Date(item.dt * 1000);
+      return date.getDate() === current.getDate();
+    });
+
+  fiveDay.forEach((item) => {
+    const date = new Date(item.dt * 1000);
+    if (
+      (current.getDate() < date.getDate() ||
+        current.getMonth() <= date.getMonth()) &&
+      !exist(item)
+    )
+      rs.push(item);
+  });
+
+  const celsius = () => {
+    setGrados("°C");
+    setTempState(tempC);;
+  };
+  const fahrenheit = () => {
+    setGrados("°F");
+    setTempState(tempF);
+   
+  };
+
   useEffect(() => {
     aP(elDato)
       .then((response) => {
@@ -33,7 +58,7 @@ export default function Main({
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-    fiveDays()
+    fiveDays(data, country)
       .then((response) => {
         setFiveDay(response.data.list);
       })
@@ -42,43 +67,76 @@ export default function Main({
       });
   }, [elDato]);
   return (
-    <div className="bg-[#100E1D] w-full flex flex-col items-center  md:h-screen ">
-      <div className="w-80 md:w-96 flex pt-6 lg:mt-16 flex-col justify-center  items-center ">
-        <div className="flex text-center gap-2   justify-end p-4 md:py-4  w-full ">
-          <div className="rounded-full w-10 h-10 bg-[#585676] ">
-            <p className="font-display text-white p-3 items-center ">°C</p>
-          </div>
-          <div className="rounded-full w-10 h-10 bg-[#585676]">
-            <p className="font-display text-white p-3">°F</p>
-          </div>
+    <div className="bg-[#100E1D] w-full flex flex-col items-center  md:h-screen text-[#E7E7EB] pb-20 sm:pb-0">
+      <div className=" flex pt-6  2xl:mt-16 flex-col justify-center w-full  items-center  ">
+        <div className="flex  justify-end  gap-2 md:w-[692px]   px-4  md:py-4 py-4  ">
+          <button
+            onClick={celsius}
+            className="rounded-full mx-24 sm:mx-0  w-10 h-10 bg-[#585676] cursor-pointer focus:bg-[#E7E7EB] text-white "
+          >
+            <p className="font-display  p-3  ">°C</p>
+          </button>
+          <button
+            onClick={fahrenheit}
+            className="rounded-full -mx-24 sm:mx-0  w-10 h-10 bg-[#585676] cursor-pointer focus:bg-[#E7E7EB] text-white "
+          >
+            <p className="font-display  p-3">°F</p>
+          </button>
         </div>
         <div className="grid grid-cols-2 gap-2 md:flex">
-          {fiveDay &&
-            fiveDay.splice(0, 5).map((li, index) => (
+          {rs &&
+            rs.splice(1, 5).map((li, index) => (
               <div
                 key={index}
-                className="bg-[#1E213A] w-32 h-40 text-center flex flex-col p-3 items-center"
+                className="bg-[#1E213A] w-32 h-40 text-center flex flex-col justify-evenly p-3 items-center"
               >
-                {li.dt_txt.split(" ")[0] === formated.split(" ")[0] && (
-                  <p className="font-display text-white">Tomorrow</p>
-                )}
+                <p className="font-display text-white">
+                  {new Date(li.dt_txt).toString().split(" ")[0] +
+                    ", " +
+                    new Date(li.dt_txt).toString().split(" ")[2] +
+                    " " +
+                    new Date(li.dt_txt).toString().split(" ")[1]}
+                </p>
+
                 {li.weather.map((item) => (
                   <img
                     key={item.id}
-                    className="w-17"
+                    className="w-10 h-auto"
                     src={`states/${item.icon}.png`}
                     alt=""
                   />
                 ))}
-
-                <div className="flex justify-center gap-2 pt-2">
-                  <p className="text-white font-display">
-                    {li.main.temp_max}°C
-                  </p>
-                  <p className="text-white font-display">
-                    {li.main.temp_min}°C
-                  </p>
-                </div>
+                {grados === "°C" ? (
+                  <div className="flex justify-center gap-2 pt-2">
+                    <p className="text-white font-display">
+                      {parseFloat(li?.main?.temp_min).toFixed(0) - 273}
+                      {grados}
+                    </p>
+                    <p className="text-white font-display">
+                      {parseFloat(li?.main?.temp_max).toFixed(0) - 273}
+                      {grados}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex justify-center gap-2 pt-2">
+                    <p className="text-white font-display">
+                      {Math.round(
+                        (parseFloat(li?.main?.temp_min).toFixed(9) - 273) *
+                          1.8 +
+                          32
+                      )}
+                      {grados}
+                    </p>
+                    <p className="text-white font-display">
+                      {Math.round(
+                        (parseFloat(li?.main?.temp_max).toFixed(9) - 273) *
+                          1.8 +
+                          32
+                      )}
+                      {grados}
+                    </p>
+                  </div>
+                )}
               </div>
             ))}
         </div>
@@ -132,7 +190,11 @@ export default function Main({
               </div>
               <div className="bg-[#1E213A] grid place-content-center gap-5 h-36 md:w-80  text-center text-white font-display">
                 <p>Visibility</p>
-                <p className="text-5xl font-bold">{visibility}M</p>
+                {grados === "°C" ? (
+                  <p className=" font-extrabold text-6xl ">{clima?.data?.visibility / 1000} <span className="font-medium text-4xl"> Km </span> </p>
+                ) : (
+                  <p className=" font-extrabold text-6xl ">{Math.round(clima?.data?.visibility * 0.00062137.toFixed(4))} <span className="font-medium text-4xl"> Miles </span> </p>
+                )}
               </div>
               <div className="bg-[#1E213A] grid place-content-center gap-5 h-36 md:w-80  text-center text-white font-display">
                 <p>Air Pressure</p>

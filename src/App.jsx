@@ -4,11 +4,12 @@ import Main from "./components/Main";
 import axios from "axios";
 
 
+
 export default function App() {
   const [data, setData] = useState("");
   const [clima, setClima] = useState([]);
   const [country, setCountry] = useState("");
-  
+  const [grados, setGrados] = useState("°C");
   useEffect(() => {
     axios({
       method: "get",
@@ -32,6 +33,8 @@ export default function App() {
           setData={setData}
           setCountry={setCountry}
           country={country}
+          grados={grados}
+          setGrados={setGrados}
         />
         <Main
           data={data}
@@ -40,6 +43,8 @@ export default function App() {
           setData={setData}
           setCountry={setCountry}
           country={country}
+          grados={grados}
+          setGrados={setGrados}
         />
       </div>
     </>
