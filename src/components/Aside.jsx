@@ -286,7 +286,7 @@ export default function Aside({
           </div>
           <div className="flex flex-col gap-20 mt-20 items-center">
             {icon &&
-              icon.map((item) => (
+              icon.splice(0,1).map((item) => (
                 <img
                   key={item.id}
                   className="w-20 md:w-56"
