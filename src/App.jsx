@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import Aside from "./components/Aside";
 import Main from "./components/Main";
 import axios from "axios";
-
-
-
 export default function App() {
   const [data, setData] = useState("");
   const [clima, setClima] = useState([]);
@@ -22,7 +19,6 @@ export default function App() {
         console.error("Error fetching data:", error);
       });
   }, []);
-
   return (
     <>
       <div className="md:flex">

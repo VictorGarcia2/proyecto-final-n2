@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { aP } from "../APIs/API"; // Ensure that aP is correctly exported from the API module
 import { fiveDays } from "../APIs/FiveDays";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 export default function Main({
   data,
@@ -14,15 +13,11 @@ export default function Main({
   const humedad = clima?.data?.main?.humidity;
   const airPressure = clima?.data?.main?.pressure;
   const wind = clima?.data?.wind?.speed;
-  const visibility = clima?.data?.visibility;
   const [fiveDay, setFiveDay] = useState([]);
   const deg = clima?.data?.wind?.deg;
   const elDato = `${data},${country}`;
-  const today = new Date();
   const rs = [];
-
   const current = new Date();
-
   const exist = (item) =>
     rs.some((weather) => {
       const date = new Date(weather.dt * 1000);
@@ -48,7 +43,6 @@ export default function Main({
     setGrados("°F");
     setTempState(tempF);
   };
-
   useEffect(() => {
     aP(elDato)
       .then((response) => {
@@ -65,7 +59,6 @@ export default function Main({
         console.error("Error fetching data:", error);
       });
   }, [elDato]);
-
   return (
     <div className="bg-[#100E1D] w-full flex flex-col items-center  md:h-screen text-[#E7E7EB] pb-20 sm:pb-0">
       <div className=" flex pt-6  2xl:mt-16 flex-col justify-center w-full  items-center  ">
@@ -209,6 +202,9 @@ export default function Main({
                 <p className="text-5xl font-bold">{airPressure}mb</p>
               </div>
             </div>
+            <p className="font-display text-base text-gray-500 py-2">
+              Created by <span className="font-extrabold">Víctor García</span>{" "}
+            </p>
           </div>
         </div>
       }

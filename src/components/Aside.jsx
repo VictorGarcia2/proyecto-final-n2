@@ -137,15 +137,14 @@ export default function Aside({
               />
             </div>
             <div className="rounded-full">
-
-            <Skeleton
+              <Skeleton
                 baseColor="#100E1D"
                 highlightColor="#1E213A"
                 width={50}
                 height={50}
                 circle
-                />
-                </div>
+              />
+            </div>
           </div>
           <div className="flex flex-col gap-20 mt-20 items-center">
             <Skeleton
@@ -219,12 +218,14 @@ export default function Aside({
           }  flex flex-col  absolute bg-[#1E213A] z-50  w-full h-screen md:w-[426px] lg:w-[575px]   font-display  `}
         >
           <form onSubmit={handle} className=" w-full  ">
-            <p
-              onClick={toggleSearchModal}
-              className="text-end py-5 px-8  cursor-pointer text-white font-extrabold"
-            >
-              X
-            </p>
+            <div className="w-full flex justify-end">
+              <img
+                src="close.svg"
+                onClick={toggleSearchModal}
+                className=" py-5 px-8  cursor-pointer  "
+              />
+            </div>
+
             <div className="flex items-center  ">
               <div className="border-white border mx-4 text-gray-200 py-2 px-2 bg-[#1E213A] flex">
                 <img className="w-6 mx-2" src="search.svg" alt="" />
@@ -243,16 +244,19 @@ export default function Aside({
                 Search{" "}
               </button>
             </div>
-            <div className="w-45 h-auto z-50 ">
+            <div className="w-60 h-auto z-50 mx-4 ">
               {searching &&
                 searching.map((item, index) => (
-                  <p
-                    onClick={handleSearch}
-                    id={index}
-                    className="cursor-pointer font-display p-2 text-gray-400 hover:border "
-                  >
-                    {item.name} | {item.country}
-                  </p>
+                  <>
+                    <p
+                      onClick={handleSearch}
+                      id={index}
+                      className="cursor-pointer font-display p-2 text-gray-400 hover:border flex align-middle justify-evenly items-center "
+                    >
+                      {item.name} | {item.country}
+                      <img className="w-5" src="arrow.svg" alt="" />
+                    </p>
+                  </>
                 ))}
             </div>
           </form>
