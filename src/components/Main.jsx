@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { aP } from "../APIs/API"; // Ensure that aP is correctly exported from the API module
 import { fiveDays } from "../APIs/FiveDays";
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 export default function Main({
   data,
   setClima,
@@ -10,7 +11,6 @@ export default function Main({
   grados,
   setGrados,
 }) {
-
   const humedad = clima?.data?.main?.humidity;
   const airPressure = clima?.data?.main?.pressure;
   const wind = clima?.data?.wind?.speed;
@@ -42,12 +42,11 @@ export default function Main({
 
   const celsius = () => {
     setGrados("°C");
-    setTempState(tempC);;
+    setTempState(tempC);
   };
   const fahrenheit = () => {
     setGrados("°F");
     setTempState(tempF);
-   
   };
 
   useEffect(() => {
@@ -66,6 +65,7 @@ export default function Main({
         console.error("Error fetching data:", error);
       });
   }, [elDato]);
+
   return (
     <div className="bg-[#100E1D] w-full flex flex-col items-center  md:h-screen text-[#E7E7EB] pb-20 sm:pb-0">
       <div className=" flex pt-6  2xl:mt-16 flex-col justify-center w-full  items-center  ">
@@ -164,7 +164,7 @@ export default function Main({
                     <p>SE</p>
                   ) : deg > 180 && deg < 270 ? (
                     <p>SW</p>
-                  ) : deg > 270 && deg < 360 ? (
+                  ) : deg > 270 && deg <div 360 ? (
                     <p>NW</p>
                   ) : (
                     <p>ENE</p>
@@ -191,9 +191,17 @@ export default function Main({
               <div className="bg-[#1E213A] grid place-content-center gap-5 h-36 md:w-80  text-center text-white font-display">
                 <p>Visibility</p>
                 {grados === "°C" ? (
-                  <p className=" font-extrabold text-6xl ">{clima?.data?.visibility / 1000} <span className="font-medium text-4xl"> Km </span> </p>
+                  <p className=" font-extrabold text-6xl ">
+                    {clima?.data?.visibility / 1000}{" "}
+                    <span className="font-medium text-4xl"> Km </span>{" "}
+                  </p>
                 ) : (
-                  <p className=" font-extrabold text-6xl ">{Math.round(clima?.data?.visibility * 0.00062137.toFixed(4))} <span className="font-medium text-4xl"> Miles </span> </p>
+                  <p className=" font-extrabold text-6xl ">
+                    {Math.round(
+                      clima?.data?.visibility * (0.00062137).toFixed(4)
+                    )}{" "}
+                    <span className="font-medium text-4xl"> Miles </span>{" "}
+                  </p>
                 )}
               </div>
               <div className="bg-[#1E213A] grid place-content-center gap-5 h-36 md:w-80  text-center text-white font-display">

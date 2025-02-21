@@ -74,7 +74,7 @@ export default function Aside({
   const [skele, setSkele] = useState(true);
   setTimeout(() => {
     setSkele(false);
-  }, 1500);
+  }, 2000);
   const load = () => {
     return (
       <>
@@ -129,26 +129,40 @@ export default function Aside({
           />
           <div className="flex z-50   justify-around gap-10 pt-4 items-center">
             <div>
-              <button
-                onClick={() => setSearchModal(false)}
-                className="text-white py-1 px-4 bg-[#6E707A] lg:w-[176px] cursor-pointer"
-              >
-                Search for places
-              </button>
+              <Skeleton
+                baseColor="#100E1D"
+                highlightColor="#1E213A"
+                width={200}
+                height={50}
+              />
             </div>
-            <a
-              className="rounded-full bg-[#6E707A] p-1  w-8 cursor-pointer"
-              onClick={handleclick}
-            >
-              <img className="cursor-pointer" src="location.svg" alt="" />
-            </a>
+            <div className="rounded-full">
+
+            <Skeleton
+                baseColor="#100E1D"
+                highlightColor="#1E213A"
+                width={50}
+                height={50}
+                circle
+                />
+                </div>
           </div>
           <div className="flex flex-col gap-20 mt-20 items-center">
-          <Skeleton baseColor="#100E1D" highlightColor="#1E213A" width={100} height={100} />
+            <Skeleton
+              baseColor="#100E1D"
+              highlightColor="#1E213A"
+              width={200}
+              height={200}
+              circle
+            />
 
             <div>
               <p className="font-display w-full text-9xl text-gray-400 font-semibold">
-              <Skeleton baseColor="#100E1D" highlightColor="#1E213A" width={100} />
+                <Skeleton
+                  baseColor="#100E1D"
+                  highlightColor="#1E213A"
+                  width={200}
+                />
               </p>
             </div>
             <div className=" text-center flex flex-col gap-6">
@@ -158,18 +172,34 @@ export default function Aside({
                     key={index}
                     className="text-gray-400 font-display text-2xl font-bold"
                   >
-                  <Skeleton baseColor="#100E1D" highlightColor="#1E213A" width={100} />
+                    <Skeleton
+                      baseColor="#100E1D"
+                      highlightColor="#1E213A"
+                      width={200}
+                    />
                   </p>
                 ))}
               <div>
                 <p className="text-gray-400 font-display text-sm font-semibold">
-                <Skeleton baseColor="#100E1D" highlightColor="#1E213A" width={100} />
+                  <Skeleton
+                    baseColor="#100E1D"
+                    highlightColor="#1E213A"
+                    width={200}
+                  />
                 </p>
               </div>
               <div className="flex items-center justify-center">
-              <Skeleton baseColor="#100E1D" highlightColor="#1E213A" width={100} />
+                <Skeleton
+                  baseColor="#100E1D"
+                  highlightColor="#1E213A"
+                  width={100}
+                />
                 <p className="text-gray-400 font-display text-sm font-semibold ">
-                  <Skeleton baseColor="#100E1D" highlightColor="#1E213A" width={100} />
+                  <Skeleton
+                    baseColor="#100E1D"
+                    highlightColor="#1E213A"
+                    width={100}
+                  />
                 </p>
               </div>
             </div>
