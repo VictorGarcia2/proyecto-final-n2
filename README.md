@@ -32,9 +32,7 @@ Weather APP permite a los usuarios obtener datos precisos sobre el clima en tiem
 
 Las contribuciones son bienvenidas. 🎉 Si deseas mejorar la aplicación o agregar nuevas funcionalidades, por favor, abre un "issue" o envía un "pull request" en el repositorio de GitHub. 📝
 
-## 📜 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT. 📄 Consulta el archivo `LICENSE` para más detalles.
 
 ---
 
