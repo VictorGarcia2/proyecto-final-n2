@@ -216,12 +216,12 @@ export default function Aside({
         <div
           className={` ${
             searchModal && "hidden"
-          }  flex flex-col  absolute bg-[#1E213A] z-50  h-screen md:w-[426px] lg:w-[575px]   font-display  `}
+          }  flex flex-col  absolute bg-[#1E213A] z-50  w-full h-screen md:w-[426px] lg:w-[575px]   font-display  `}
         >
           <form onSubmit={handle} className=" w-full  ">
             <p
               onClick={toggleSearchModal}
-              className="text-end py-5 px-2  cursor-pointer text-white font-extrabold"
+              className="text-end py-5 px-8  cursor-pointer text-white font-extrabold"
             >
               X
             </p>
