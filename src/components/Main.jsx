@@ -78,19 +78,14 @@ export default function Main({
         </div>
         <div className="grid grid-cols-2 gap-2 md:flex">
           {rs &&
-            rs.splice(1, 5).map((li, index) => (
+            rs.splice(1, 1).map((li, index) => (
               <div
                 key={index}
                 className="bg-[#1E213A] w-32 h-40 text-center flex flex-col justify-evenly p-3 items-center"
               >
                 <p className="font-display text-white">
-                  {new Date(li.dt_txt).toString().split(" ")[0] +
-                    ", " +
-                    new Date(li.dt_txt).toString().split(" ")[2] +
-                    " " +
-                    new Date(li.dt_txt).toString().split(" ")[1]}
+                  Tomorrow
                 </p>
-
                 {li.weather.map((item) => (
                   <img
                     key={item.id}
@@ -132,6 +127,61 @@ export default function Main({
                 )}
               </div>
             ))}
+          {rs &&
+            rs.splice(1, 5).map((li, index) => (
+              <div
+                key={index}
+                className="bg-[#1E213A] w-32 h-40 text-center flex flex-col justify-evenly p-3 items-center"
+              >
+                <p className="font-display text-white">
+                  {new Date(li.dt_txt).toString().split(" ")[0] +
+                    ", " +
+                    new Date(li.dt_txt).toString().split(" ")[2] +
+                    " " +
+                    new Date(li.dt_txt).toString().split(" ")[1]}
+                </p>
+                {li.weather.map((item) => (
+                  <img
+                    key={item.id}
+                    className="w-10 h-auto"
+                    src={`states/${item.icon}.png`}
+                    alt=""
+                  />
+                ))}
+                {grados === "°C" ? (
+                  <div className="flex justify-center gap-2 pt-2">
+                    <p className="text-white font-display">
+                      {parseFloat(li?.main?.temp_min).toFixed(0) - 273}
+                      {grados}
+                    </p>
+                    <p className="text-white font-display">
+                      {parseFloat(li?.main?.temp_max).toFixed(0) - 273}
+                      {grados}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex justify-center gap-2 pt-2">
+                    <p className="text-white font-display">
+                      {Math.round(
+                        (parseFloat(li?.main?.temp_min).toFixed(9) - 273) *
+                          1.8 +
+                          32
+                      )}
+                      {grados}
+                    </p>
+                    <p className="text-white font-display">
+                      {Math.round(
+                        (parseFloat(li?.main?.temp_max).toFixed(9) - 273) *
+                          1.8 +
+                          32
+                      )}
+                      {grados}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+         
         </div>
       </div>
       {
